@@ -1,9 +1,9 @@
 # 🚀 Moj AI - AI-Powered Slovenian Building Legislation Assistant
 
-**Status**: ✅ **PRODUCTION READY** | **Version**: v7.2.1 | **Last Updated**: October 16, 2025
+**Status**: ✅ **PRODUCTION READY** | **Version**: v11.0 (AI Orchestration V7.2) | **Last Updated**: October 18, 2025
 
 > **Advanced AI orchestration platform for Slovenian building permits and legislation**
-> Combining Claude Sonnet 4.5, GPT-4o-mini, and Perplexity with multimodal RAG for research-quality legal analysis
+> Combining Claude Sonnet 4, GPT-4.1 (April 2025), and Perplexity with multimodal RAG for research-quality legal analysis
 
 **Deployment**: DigitalOcean App Platform | **Domain**: [app.mojai.xyz](https://app.mojai.xyz)
 
@@ -34,12 +34,12 @@ Moj AI offers two AI modes optimized for different use cases:
 
 | Feature | Details |
 |---------|---------|
-| **AI Model** | Claude Sonnet 4.5 (Anthropic) |
-| **Response Length** | 10,000-30,000 characters |
-| **Tools Used** | RAG + Perplexity + Legal Reasoning |
+| **AI Model** | Claude Sonnet 4 (Anthropic) |
+| **Response Length** | 10,000-25,000 characters |
+| **Tools Used** | RAG + Perplexity + General Knowledge + Anti-Hallucination |
 | **Processing Time** | 60-240 seconds |
 | **Question Cost** | 1.0 questions |
-| **Real Example** | 28,942 characters, 236.9s, 34 sources |
+| **Real Example** | 15,277 characters, 138s, 5 sources |
 
 **What you get**:
 - Comprehensive 5-10 page reports
@@ -54,12 +54,12 @@ Moj AI offers two AI modes optimized for different use cases:
 
 | Feature | Details |
 |---------|---------|
-| **AI Model** | GPT-4o-mini (OpenAI) |
-| **Response Length** | 2,000-5,000 characters |
-| **Tools Used** | RAG + Legal Reasoning (Perplexity skipped) |
-| **Processing Time** | <30 seconds |
+| **AI Model** | GPT-4.1 April 2025 (OpenAI) |
+| **Response Length** | 2,000-3,000 characters |
+| **Tools Used** | RAG + General Knowledge (Perplexity skipped for cost savings) |
+| **Processing Time** | 15-30 seconds |
 | **Question Cost** | 0.5 questions (half price!) |
-| **Real Example** | 2,365 characters, 23.5s, 4 sources |
+| **Real Example** | 2,929 characters, 17.1s, 3 sources |
 
 **What you get**:
 - Concise, focused answers
