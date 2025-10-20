@@ -1,11 +1,11 @@
 # 🚀 Moj AI - AI-Powered Slovenian Building Legislation Assistant
 
-**Status**: ✅ **PRODUCTION READY** | **Version**: v11.0 (AI Orchestration V7.2) | **Last Updated**: October 18, 2025
+**Version**: v11.0 (AI Orchestration V7.2.1) | **Last Updated**: October 20, 2025
 
 > **Advanced AI orchestration platform for Slovenian building permits and legislation**
-> Combining Claude Sonnet 4, GPT-4.1 (April 2025), and Perplexity with multimodal RAG for research-quality legal analysis
+> Combining Claude Sonnet 4 (or higher), GPT-4o (or higher), and Perplexity with multimodal RAG for research-quality legal analysis
 
-**Deployment**: DigitalOcean App Platform | **Domain**: [app.mojai.xyz](https://app.mojai.xyz)
+**Live Application**: [app.mojai.xyz](https://app.mojai.xyz)
 
 ---
 
@@ -15,7 +15,7 @@ Moj AI is a production-grade, multi-tenant SaaS platform that helps users naviga
 
 ### **Core Value Proposition**
 
-- **🎯 Specialized Knowledge**: 7 core Slovenian building legislation PDFs (Pravilnik, TSG, Uredba, Zakon, OPN_MOM, GZ, Odlok_OPN_MOL_ID) permanently loaded
+- **🎯 Specialized Knowledge**: Multi core Slovenian building legislation PDFs (Pravilnik, TSG, Uredba, Zakon, OPN_MOM, GZ, Odlok_OPN_MOL_ID) permanently loaded
 - **🤖 Dual-Mode AI**: Choose between comprehensive research (Frontier) or fast answers (Lightning)
 - **📚 Multimodal RAG**: Upload your own PDFs, DOCX, or scanned documents for conversation-specific analysis
 - **🌐 Real-Time Research**: Internet research via Perplexity for current prices, regulations, and market data
@@ -113,8 +113,6 @@ Moj AI offers two AI modes optimized for different use cases:
 
 ---
 
----
-
 ## 🛠️ **Technology Stack**
 
 ### **Frontend**
@@ -147,8 +145,8 @@ Moj AI offers two AI modes optimized for different use cases:
 ### **AI/LLM Providers**
 | Provider | Models | Purpose |
 |----------|--------|---------|
-| **Anthropic** | Claude Sonnet 4.5 | Frontier mode orchestrator, legal reasoning |
-| **OpenAI** | GPT-4o-mini, text-embedding-3-small | Lightning mode orchestrator, embeddings |
+| **Anthropic** | Claude Sonnet 4 | Frontier mode orchestrator, legal reasoning |
+| **OpenAI** | GPT-4o, text-embedding-3-small | Lightning mode orchestrator, embeddings |
 | **Perplexity** | sonar-pro | Real-time internet research (Frontier mode only) |
 
 ### **Infrastructure & Services**
@@ -161,8 +159,6 @@ Moj AI offers two AI modes optimized for different use cases:
 | **Docker Compose** | Local development environment |
 | **Google OAuth** | Authentication |
 | **Stripe** | Payment processing and subscriptions |
-
----
 
 ---
 
@@ -222,22 +218,20 @@ Moj AI offers two AI modes optimized for different use cases:
 
 ---
 
----
-
 ## 📚 **Documentation**
 
-Comprehensive documentation is available in the `docs/` directory.
+Comprehensive documentation is available in the `docs/` directory and the public documentation repository at [github.com/talirezun/moj-ai-docs](https://github.com/talirezun/moj-ai-docs).
 
 ### **Architecture Documentation** (`docs/architecture/`)
 
 | Document | Description |
 |----------|-------------|
 | **[system-overview.md](docs/architecture/system-overview.md)** | High-level system architecture, component interactions, data flow |
-| **[ai-orchestration.md](docs/architecture/ai-orchestration.md)** | V7.2 dual-mode orchestration, tool coordination, response synthesis |
+| **[ai-orchestration.md](docs/architecture/ai-orchestration.md)** | V7.2.1 dual-mode orchestration, anti-hallucination tool, response synthesis |
 | **[database-schema.md](docs/architecture/database-schema.md)** | Complete database schema, relationships, indexes |
 | **[multimodal-rag-architecture.md](docs/architecture/multimodal-rag-architecture.md)** | Dual RAG system, document processing, quality validation |
 | **[authentication-system.md](docs/architecture/authentication-system.md)** | Google OAuth implementation, JWT tokens, role-based access |
-| **[master-system-message.md](docs/architecture/master-system-message.md)** | AI system prompts for Frontier and Lightning modes |
+| **[master-system-message.md](docs/architecture/master-system-message.md)** | VERSION 4 AI system prompts for Frontier and Lightning modes |
 | **[PROJECT_STRUCTURE.md](docs/architecture/PROJECT_STRUCTURE.md)** | Codebase organization, file structure, key components |
 
 ### **UI/UX Features** (`docs/ui-ux-features/`)
@@ -257,94 +251,12 @@ Comprehensive documentation is available in the `docs/` directory.
 | **[00_USER_SCENARIOS_INDEX.md](docs/user-scenarios/00_USER_SCENARIOS_INDEX.md)** | Complete index of user scenarios |
 | **[01_BUILDING_PERMITS.md](docs/user-scenarios/01_BUILDING_PERMITS.md)** | Building permit application scenarios |
 
-### **Admin Documentation** (`docs/admin/`)
+### **Public Documentation Repository**
 
-| Document | Description |
-|----------|-------------|
-| **[admin-guide.md](docs/admin/admin-guide.md)** | Complete admin panel usage guide |
-
-### **Operations** (`docs/agent_manuals/`)
-
-| Document | Description |
-|----------|-------------|
-| **[operations-startup-guide.md](docs/agent_manuals/operations-startup-guide.md)** | How to start the application |
-| **[operations-stop-guide.md](docs/agent_manuals/operations-stop-guide.md)** | How to stop the application |
-
-### **Production Deployment**
-
-| Document | Description |
-|----------|-------------|
-| **[PRODUCTION_DEPLOYMENT_GUIDE.md](docs/PRODUCTION_DEPLOYMENT_GUIDE.md)** | Complete DigitalOcean deployment guide |
-| **[SECURITY_AUDIT_REPORT.md](docs/audits/SECURITY_AUDIT_REPORT.md)** | Security audit findings and recommendations |
-| **[GITHUB_SETUP_GUIDE.md](docs/GITHUB_SETUP_GUIDE.md)** | GitHub repository setup and sync workflow |
-
----
-
----
-
-## 🚀 **Quick Start**
-
-### **Prerequisites**
-
-- **Docker & Docker Compose** - For local database services
-- **Node.js 18+** - For frontend development
-- **Python 3.11+** - For backend development
-- **API Keys** - OpenAI, Anthropic, Perplexity, Stripe, Google OAuth
-
-### **Local Development Setup**
-
-**1. Clone the repository**
-```bash
-git clone https://github.com/talirezun/moj-ai-v11.git
-cd moj-ai-v11
-```
-
-**2. Start database services**
-```bash
-docker-compose up -d postgres redis weaviate
-```
-
-**3. Configure environment variables**
-```bash
-# Backend
-cp backend/.env.example backend/.env
-# Edit backend/.env with your API keys
-
-# Frontend
-cp frontend/.env.example frontend/.env.local
-# Edit frontend/.env.local with your configuration
-```
-
-**4. Start backend**
-```bash
-cd backend
-source venv/bin/activate
-export PYTHONPATH=/path/to/moj-ai-v11/backend
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-**5. Start frontend**
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-**6. Access the application**
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8000
-- **API Docs**: http://localhost:8000/docs
-
-### **Test Accounts**
-
-| Email | Role | Purpose |
-|-------|------|---------|
-| `produkcija97@gmail.com` | Admin | Full admin access, configuration management |
-| `blocklabstech@gmail.com` | User | Standard user testing |
-
-**See**: [docs/agent_manuals/operations-startup-guide.md](docs/agent_manuals/operations-startup-guide.md) for detailed instructions
-
----
+The following documentation is also available in the public repository at [github.com/talirezun/moj-ai-docs](https://github.com/talirezun/moj-ai-docs):
+- **Architecture Documentation** - System design and technical architecture
+- **UI/UX Features** - User interface and experience documentation
+- **User Scenarios** - Real-world use cases and examples
 
 ---
 
@@ -433,7 +345,7 @@ moj-ai-v11/
 │   ├── admin/                 # Admin guides
 │   └── agent_manuals/         # Operations guides
 │
-├── training-files/            # 7 core legal PDFs
+├── training-files/            # Multi core legal PDFs
 │   ├── Pravilnik_o_projektni_in_drugi_dokumentaciji_PISRS.pdf
 │   ├── TSG-V-006_2022_razvrscanje_objektov.pdf
 │   ├── Uredba_o_razvrscanju_objektov_PISRS.pdf
@@ -458,127 +370,6 @@ moj-ai-v11/
 | `frontend/hooks/useChat.ts` | Chat logic with SSE streaming |
 | `frontend/components/chat/ModeSelector.tsx` | Frontier/Lightning mode selector |
 | `frontend/components/chat/QuestionAllowanceDisplay.tsx` | Question balance display |
-
----
-
-## 🔧 **Development**
-
-### **Project Structure**
-```
-moj-ai-v11/
-├── backend/
-│   ├── minimal_backend.py          # Main production server
-│   ├── app/                        # FastAPI application
-│   │   ├── services/               # Business logic (orchestration, RAG, etc.)
-│   │   ├── models/                 # Database models
-│   │   └── api/v1/                 # API endpoints
-│   └── requirements.txt            # Python dependencies
-├── frontend/
-│   ├── app/                        # Next.js pages (App Router)
-│   ├── components/                 # React components
-│   ├── contexts/                   # State management
-│   ├── hooks/                      # Custom hooks
-│   └── lib/                        # Utilities and API client
-├── docs/                           # Complete documentation
-│   ├── architecture/               # Architecture docs
-│   │   └── v7/                     # V7 orchestration specs
-│   ├── admin/                      # Admin guides
-│   └── archive/                    # Historical docs
-├── training-files/                 # RAG documents (Slovenian legislation)
-└── docker-compose.yml              # Service orchestration
-```
-
-### **Key Files**
-- **Backend**: `backend/minimal_backend.py` - Main server
-- **Frontend**: `frontend/hooks/useChat.ts` - Chat logic with SSE
-- **V7 Specs**: `docs/architecture/v7/` - Complete V7 documentation
-- **Database Models**: `backend/app/models/` - All data models
-
----
-
----
-
-## 📊 **Current Status**
-
-### **✅ Production Ready**
-
-| Component | Status | Notes |
-|-----------|--------|-------|
-| **V7.2 Dual-Mode Orchestration** | ✅ Operational | Frontier + Lightning modes fully tested |
-| **Dual RAG System** | ✅ Operational | Admin RAG (7 PDFs) + User RAG working |
-| **Google OAuth** | ✅ Operational | Secure authentication with role-based access |
-| **Stripe Integration** | ✅ Operational | Subscriptions, question purchases, webhooks |
-| **PostgreSQL Database** | ✅ Operational | All tables, indexes, relationships |
-| **Weaviate Vector DB** | ✅ Operational | Semantic search, embeddings |
-| **Redis Cache** | ✅ Operational | Session management, caching |
-| **Admin Panel** | ✅ Operational | Full configuration management |
-| **Real-Time Progress** | ✅ Operational | Server-Sent Events streaming |
-| **Question Allowance** | ✅ Operational | Fractional deduction (0.5/1.0) |
-| **File Upload** | ✅ Operational | Quality validation, multimodal processing |
-| **Mobile Responsive** | ✅ Operational | Works on all devices |
-| **Security Audit** | ✅ Complete | No hardcoded secrets, SQL injection safe |
-| **DigitalOcean Spaces** | ✅ Ready | Storage service implemented |
-
-### **🚀 Ready for Deployment**
-
-- ✅ Security audit passed
-- ✅ Environment configuration templates created
-- ✅ DigitalOcean Spaces integration complete
-- ✅ GitHub sync workflow configured
-- ✅ Production deployment guide written
-- ⏳ Awaiting API key rotation and final testing
-
----
-
-## 📄 **License**
-
-This project is proprietary software owned by Skupina Svetilnik d.o.o.
-
-Copyright (c) 2025 Skupina Svetilnik d.o.o. All rights reserved.
-
-See [LICENSE](LICENSE) file for full license terms.
-
----
-
-## 🚀 **Production Deployment**
-
-### **Infrastructure**
-- **Platform**: DigitalOcean App Platform
-- **Domain**: app.mojai.xyz (configured via Cloudflare)
-- **Database**: DigitalOcean Managed PostgreSQL
-- **Cache**: DigitalOcean Managed Redis
-- **Vector DB**: Weaviate on DigitalOcean Droplet
-- **Object Storage**: DigitalOcean Spaces (for file uploads)
-
-### **Environment Configuration**
-- See `backend/.env.example` for required environment variables
-- See `frontend/.env.example` for frontend configuration
-- All secrets managed via DigitalOcean App Platform environment variables
-
-### **Security**
-- ✅ No hardcoded secrets in codebase
-- ✅ SQL injection protection via SQLAlchemy ORM
-- ✅ XSS protection via input validation middleware
-- ✅ CORS configured for production domain
-- ✅ Rate limiting implemented (60 req/min, 1000 req/hour)
-- ✅ JWT-based authentication with Google OAuth
-- ⚠️ Rotate all API keys before production deployment
-
-See [docs/SECURITY_AUDIT_REPORT.md](docs/SECURITY_AUDIT_REPORT.md) for complete security audit.
-
-### **Deployment Checklist**
-- [ ] Rotate all API keys (OpenAI, Anthropic, Perplexity, Stripe, Google OAuth)
-- [ ] Generate strong JWT_SECRET and SECRET_KEY
-- [ ] Change PostgreSQL password from default
-- [ ] Configure DigitalOcean Managed Databases
-- [ ] Set up DigitalOcean Spaces for file uploads
-- [ ] Update CORS_ORIGINS to production domain only
-- [ ] Set ENVIRONMENT=production and DEBUG=false
-- [ ] Configure SSL for all database connections
-- [ ] Set up monitoring with Sentry
-- [ ] Test all features in staging environment
-
----
 
 ---
 
@@ -615,4 +406,4 @@ Built with:
 
 ---
 
-**Last Updated**: October 16, 2025 | **Version**: v7.2.1 | **Status**: Production Ready
+**Last Updated**: October 20, 2025 | **Version**: v7.2.1 | **Status**: Production Ready

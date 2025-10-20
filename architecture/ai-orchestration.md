@@ -1,19 +1,26 @@
 # AI Orchestration Architecture (V7)
 
-**Last Updated:** October 12, 2025
+**Last Updated:** October 20, 2025
 **Status:** ✅ PRODUCTION READY - Dual-Mode Orchestration (Frontier + Lightning)
-**Version:** V7.2.0
+**Version:** V7.2.1
 
 ---
 
-## 🎉 MAJOR UPDATE v7.2 - Dual-Mode Orchestration (October 12, 2025)
+## 🎉 MAJOR UPDATE v7.2.1 - Master System Message & Anti-Hallucination Fix (October 19, 2025)
 
-**NEW CAPABILITIES:**
+**CRITICAL FIXES:**
+- ✅ **Master System Message Persistence**: Admin UI changes now persist correctly to database and orchestration
+- ✅ **Anti-Hallucination Reporting**: Tool execution is now accurately reported in Frontier Mode responses
+- ✅ **VERSION 4 System Messages**: Added version markers for tracking and verification
+- ✅ **Orchestration Architecture**: Confirmed anti-hallucination must run LAST (after legal reasoning)
+- ✅ **Comprehensive Testing**: Autonomous testing verified all components working correctly
+
+**v7.2 CAPABILITIES (October 12, 2025):**
 - ✅ **Dual-Mode Orchestration**: Frontier (research-quality) + Lightning (fast answers)
-- ✅ **Frontier Mode**: Claude Sonnet 4.5, 10k-25k chars, RAG + Perplexity + LLM, 1.0 questions, 60-90s
-- ✅ **Lightning Mode**: GPT-4o-mini, 2k-5k chars, RAG + LLM only, 0.5 questions, <30s
+- ✅ **Frontier Mode**: Claude Sonnet 4 (or higher), 10k-25k chars, RAG + Perplexity + Anti-Hallucination, 1.0 questions, 60-240s
+- ✅ **Lightning Mode**: GPT-4.1 (or higher), 2k-3k chars, RAG only (no Perplexity/Anti-Hallucination), 0.5 questions, 15-30s
 - ✅ **Fractional Question Deduction**: 0.5 questions for Lightning, 1.0 for Frontier
-- ✅ **Performance Optimization**: Lightning mode skips Perplexity for 2.4x speedup
+- ✅ **Performance Optimization**: Lightning mode skips Perplexity and Anti-Hallucination for speed
 - ✅ **Dual System Messages**: Separate prompts for Frontier (comprehensive) and Lightning (concise)
 - ✅ **Dynamic Model Selection**: Admin configures both models, system selects based on mode
 
@@ -35,20 +42,22 @@
 The V7 AI Orchestration system is the **core product value** of Moj AI. It coordinates multiple AI models and tools to deliver **two types of responses**:
 
 ### **Frontier Mode** (Research-Quality)
-- **Model**: Claude Sonnet 4.5 (admin-configurable)
-- **Tools**: RAG + Perplexity + General Knowledge
-- **Response**: 10,000-25,000 characters
-- **Time**: 60-90 seconds
+- **Model**: Claude Sonnet 4 (or higher) (claude-sonnet-4-20250514, admin-configurable)
+- **Tools**: RAG + Perplexity + Anti-Hallucination + General Knowledge
+- **Response**: 10,000-25,000 characters (tested: 13,082 chars)
+- **Time**: 60-240 seconds (tested: 198 seconds)
 - **Cost**: 1.0 questions
 - **Use Case**: Comprehensive research, legal analysis, detailed reports
+- **System Message**: VERSION 4 (9,862 chars) - stored in database, admin-editable
 
 ### **Lightning Mode** (Fast Answers)
-- **Model**: GPT-4o-mini (admin-configurable)
-- **Tools**: RAG + General Knowledge (Perplexity skipped for speed)
-- **Response**: 2,000-5,000 characters
-- **Time**: <30 seconds
+- **Model**: GPT-4.1 (or higher) (gpt-4.1-2025-04-14, admin-configurable)
+- **Tools**: RAG + General Knowledge (Perplexity and Anti-Hallucination skipped for speed)
+- **Response**: 2,000-3,000 characters (tested: 2,626 chars)
+- **Time**: 15-30 seconds (tested: 21.5 seconds)
 - **Cost**: 0.5 questions
 - **Use Case**: Quick answers, simple queries, cost-effective responses
+- **System Message**: VERSION 4 (6,829 chars) - stored in database, admin-editable
 
 **Key Principle:** ONE main orchestrator LLM per mode with tools at its disposal:
 - **Perplexity** - Internet research tool (Frontier only)
@@ -83,8 +92,8 @@ User Query + Mode Selection (Frontier/Lightning)
     ↓
 ┌─────────────────────────────────────────────────────────┐
 │  Legal Reasoning Tool V7                                │
-│  - Frontier: Claude Sonnet 4.5 + Frontier System Msg    │
-│  - Lightning: GPT-4o-mini + Lightning System Msg        │
+│  - Frontier: Claude Sonnet 4 + Frontier System Msg      │
+│  - Lightning: GPT-4.1 + Lightning System Msg            │
 │  - Selects config based on lightning_mode parameter     │
 └─────────────────────────────────────────────────────────┘
     ↓
@@ -117,14 +126,16 @@ Final Response (5-10 pages, Slovenian legal format)
 
 | Feature | Frontier Mode 🚀 | Lightning Mode ⚡ |
 |---------|------------------|-------------------|
-| **Model** | Claude Sonnet 4.5 | GPT-4o-mini |
-| **System Message** | 3,773 chars (comprehensive) | 2,474 chars (concise) |
-| **Response Length** | 10,000-25,000 chars | 2,000-5,000 chars |
-| **Processing Time** | 60-90 seconds | <30 seconds |
-| **Tools Used** | RAG + Perplexity + LLM | RAG + LLM only |
+| **Model** | Claude Sonnet 4 (or higher) (claude-sonnet-4-20250514) | GPT-4.1 (or higher) (gpt-4.1-2025-04-14) |
+| **System Message** | VERSION 4 (9,862 chars, comprehensive) | VERSION 4 (6,829 chars, concise) |
+| **Response Length** | 10,000-25,000 chars (tested: 13,082) | 2,000-3,000 chars (tested: 2,626) |
+| **Processing Time** | 60-240 seconds (tested: 198s) | 15-30 seconds (tested: 21.5s) |
+| **Tools Used** | RAG + Perplexity + Anti-Hallucination | RAG only |
 | **Question Cost** | 1.0 questions | 0.5 questions |
 | **Use Case** | Research, analysis, reports | Quick answers, simple queries |
+| **RAG Search** | ✅ Enabled | ✅ Enabled |
 | **Perplexity** | ✅ Enabled | ❌ Skipped for speed |
+| **Anti-Hallucination** | ✅ Enabled | ❌ Skipped for speed |
 
 ### **Admin Configuration**
 
@@ -189,23 +200,48 @@ elif internet_needed and lightning_mode:
 ### 2. Tool Coordinator (`tool_coordinator_v7.py`)
 **Purpose:** Execute tools in optimal order and manage context flow
 
-**Execution Strategy:**
-1. **Gathering Phase** (parallel): Internet research, RAG search, form discovery
-2. **Reasoning Phase** (sequential): Legal reasoning with context from gathering tools
-3. **Validation Phase**: Quality validation of final response
+**Execution Strategy (4 Phases):**
+1. **Phase 1 - Gathering** (parallel): Internet research, RAG search, form discovery
+2. **Phase 2 - Reasoning** (sequential): Legal reasoning with context from gathering tools
+3. **Phase 3 - Anti-Hallucination** (Frontier only): Verify factual claims in draft response
+4. **Phase 4 - Validation**: Quality validation of final response
 
 **Tools Available:**
 - `rag_search` - Search uploaded documents (Weaviate)
-- `internet_research` - Search internet (Perplexity Sonar Pro)
+- `internet_research` - Search internet (Perplexity Sonar Pro) - Frontier only
 - `form_discovery` - Find relevant forms
 - `legal_reasoning` - Main orchestrator (Claude/GPT)
+- `anti_hallucination` - Verify factual claims (Perplexity) - Frontier only
 - `quality_validation` - Validate response quality
+
+**Critical Architecture Decision (Oct 19, 2025):**
+Anti-hallucination tool MUST run in Phase 3, AFTER legal reasoning (Phase 2) generates the draft response. This allows it to:
+1. Review the complete draft response
+2. Extract factual claims from the draft
+3. Verify claims against internet sources via Perplexity
+4. Correct any inaccuracies before final output
+
+**Anti-Hallucination Reporting Fix (Oct 19, 2025):**
+Added post-processing step (lines 227-282, 376-444) that updates the response AFTER anti-hallucination executes:
+```python
+# Phase 3: Anti-Hallucination (Frontier mode only)
+if not lightning_mode and "anti_hallucination" in tool_names:
+    anti_hallucination_result = await self._execute_tool(...)
+
+    # POST-PROCESS: Update legal_reasoning response with anti-hallucination reporting
+    if "legal_reasoning" in results and results["legal_reasoning"].success:
+        updated_response = self._add_anti_hallucination_reporting(
+            results["legal_reasoning"].content,
+            anti_hallucination_result
+        )
+        results["legal_reasoning"] = ToolResult(...)
+```
 
 ### 3. Legal Reasoning Tool (`legal_reasoning_tool_v7.py`)
 **Purpose:** Main orchestrator that performs legal analysis with dual-mode support
 
 **Key Features:**
-- **Dual Config Support**: Frontier (Claude Sonnet 4.5) + Lightning (GPT-4o-mini)
+- **Dual Config Support**: Frontier (Claude Sonnet 4 or higher) + Lightning (GPT-4.1 or higher)
 - **Mode Selection**: Chooses config based on `lightning_mode` parameter
 - Receives context from RAG and internet research
 - Applies mode-specific system message
@@ -385,7 +421,7 @@ await db.execute(
 **Benefits:**
 - Users get 2x more Lightning queries for same cost
 - Encourages use of fast mode for simple questions
-- Reduces infrastructure costs (GPT-4o-mini cheaper than Claude Sonnet 4.5)
+- Reduces infrastructure costs (GPT-4.1 cheaper than Claude Sonnet 4)
 - Improves user experience with faster responses
 
 ---
@@ -409,7 +445,7 @@ await db.execute(
 6. Language requirements (always Slovenian)
 
 **Application:**
-- Applied to Frontier mode (Claude Sonnet 4.5)
+- Applied to Frontier mode (Claude Sonnet 4 or higher)
 - Combined with RAG + Perplexity context
 - Enforces comprehensive response quality
 
@@ -430,7 +466,7 @@ await db.execute(
 6. Language requirements (always Slovenian)
 
 **Application:**
-- Applied to Lightning mode (GPT-4o-mini)
+- Applied to Lightning mode (GPT-4.1 or higher)
 - Combined with RAG context only (no Perplexity)
 - Optimized for speed and cost-effectiveness
 
@@ -450,7 +486,7 @@ await db.execute(
   - VIRI (Sources)
 - **Sources:** Minimum 5-10 sources with inline citations
 - **Citations:** Embedded in text [1], [2], [3] with full list at end
-- **Quality:** Comparable to Claude Sonnet 4.5 research mode with internet access
+- **Quality:** Comparable to Claude Sonnet 4 research mode with internet access
 - **Depth:** Comprehensive analysis with real-world examples
 - **Specificity:** Exact forms, procedures, calculations
 - **Actionability:** Clear next steps and recommendations

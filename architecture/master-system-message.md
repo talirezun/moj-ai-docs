@@ -1,6 +1,6 @@
 # MASTER SYSTEM MESSAGES - DUAL-MODE AI ORCHESTRATION
 
-**Status**: ✅ Production Ready | **Version**: v7.3.0 | **Last Updated**: October 18, 2025
+**Status**: ✅ Production Ready | **Version**: v7.4.0 | **Last Updated**: October 19, 2025
 
 ---
 
@@ -10,7 +10,7 @@ Moj AI uses **TWO separate system messages** for different use cases:
 
 ### **Frontier Mode** 🚀
 - **Model**: Claude Sonnet 4.5 (admin-configurable)
-- **System Message Length**: 9,847 characters (V3 - Oct 18, 2025)
+- **System Message Length**: 9,847 characters (V4 - Oct 19, 2025)
 - **Response Target**: 10,000-25,000 characters (research-quality)
 - **Tools**: RAG + Perplexity + General Knowledge + Anti-Hallucination
 - **Tool Hierarchy**: ALL TOOLS EQUAL IMPORTANCE (RAG = Internet = General Knowledge)
@@ -20,7 +20,7 @@ Moj AI uses **TWO separate system messages** for different use cases:
 
 ### **Lightning Mode** ⚡
 - **Model**: GPT-4o-mini (admin-configurable)
-- **System Message Length**: 5,450 characters (V3 - Oct 18, 2025)
+- **System Message Length**: 5,450 characters (V4 - Oct 19, 2025)
 - **Response Target**: 2,000-3,000 characters (concise)
 - **Tools**: RAG + General Knowledge (NO Perplexity for cost savings)
 - **Tool Hierarchy**: BOTH TOOLS EQUAL IMPORTANCE (RAG = General Knowledge)
@@ -33,7 +33,19 @@ Moj AI uses **TWO separate system messages** for different use cases:
 
 ## 🔄 **VERSION HISTORY**
 
-### **V3 (October 18, 2025)** - CURRENT
+### **V4 (October 19, 2025)** - CURRENT
+**Major Improvements**:
+- ✅ **Fixed Admin UI Persistence**: Removed hardcoded fallback to `master_system_message` in frontend
+- ✅ **Enhanced Anti-Hallucination Reporting**: Added explicit instructions for reporting anti-hallucination tool usage in "KAKO JE BIL ODGOVOR GENERIRAN" section
+- ✅ **Version Markers**: Added "<!-- VERSION 4 -->" markers for tracking system message versions
+- ✅ **Admin UI as Source of Truth**: Ensured admin UI is the ONLY source of truth for system messages
+
+**Testing Requirements**:
+- Verify admin UI changes persist after page reload
+- Verify anti-hallucination tool usage is reported accurately in responses
+- Verify version markers appear in database and orchestration logs
+
+### **V3 (October 18, 2025)**
 **Major Improvements**:
 - ✅ **Fixed Tool Hierarchy**: Changed from "RAG IS PRIMARY SOURCE" to "ALL TOOLS EQUAL IMPORTANCE"
 - ✅ **Added Anti-Hallucination Tool**: Included in Frontier mode tools list
@@ -219,7 +231,11 @@ Use this format for all responses:
 - Show exact numbers:
   - "RAG search: X chunks from Y document(s)"
   - "Perplexity search: X sources from internet"
-  - "Anti-hallucination: X claims verified"
+  - "Anti-hallucination: X claims verified" (ALWAYS report if anti-hallucination tool was used)
+- **CRITICAL**: If anti-hallucination tool was used, ALWAYS report:
+  - How many claims were verified
+  - Which specific claims were checked
+  - Results of verification (confirmed/corrected)
 - Explain how sources were combined
 - 500-800 characters
 
@@ -315,9 +331,12 @@ Your response is successful if:
 - ✅ Article numbers are included in legal citations (e.g., "Člen 10")
 - ✅ All three tools were used (RAG, Perplexity, General Knowledge)
 - ✅ Anti-Hallucination tool verified critical claims
+- ✅ Anti-Hallucination tool usage is REPORTED in "KAKO JE BIL ODGOVOR GENERIRAN" section
 - ✅ Sources are properly cited with indicators (📚🌐🧠)
 - ✅ "KAKO JE BIL ODGOVOR GENERIRAN" shows exact numbers
 - ✅ Response is comprehensive, accurate, and actionable
+
+<!-- VERSION 4 -->
 ```
 
 ---
@@ -514,6 +533,8 @@ Your response is successful if:
 - ✅ User gets quick answer without sacrificing quality
 - ✅ Cost is 0.5 questions (half of Frontier Mode)
 - ✅ Recommends Frontier Mode when current data is critical
+
+<!-- VERSION 4 -->
 ```
 
 ---
@@ -561,6 +582,6 @@ else:
 
 ---
 
-**Last Updated**: October 18, 2025
-**Version**: v7.3.0
-**Status**: ✅ Production Ready - V3 Master System Messages
+**Last Updated**: October 19, 2025
+**Version**: v7.4.0
+**Status**: ✅ Production Ready - V4 Master System Messages
