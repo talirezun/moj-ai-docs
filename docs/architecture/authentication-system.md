@@ -33,12 +33,6 @@ The Moj AI authentication system uses **Google OAuth 2.0** for user authenticati
 - **ADMIN:** Full access to admin dashboard and AI configuration
 - **USER:** Access to chat interface and user features
 
-### Admin Email Allowlist
-
-The following emails are automatically granted ADMIN role:
-- `mojaixyz@gmail.com`
-- `produkcija97@gmail.com`
-
 ---
 
 ## Authentication Flow
